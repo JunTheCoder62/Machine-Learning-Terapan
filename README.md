@@ -1,2 +1,2 @@
 # Laporan Project Machine Learning Terapan - Juniyara Parisya Setiawa
-## Domain project
+This Rep is just for data 
