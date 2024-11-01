@@ -18,7 +18,7 @@ Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kese
 
 ## Solution Statements
 - Dengan Univariate dan Multivariate anlysis untuk memahami variable dan hubungan corelasi dengan variable lain.
-- Membangun beberapa model Machine Learning seperti Logistic Regression, Decision Tree, Random Forest, dan lain - lain untuk memprediksi Diagnosis Stroke.
+- Membangun beberapa model Machine Learning seperti Decision Tree, Random Forest, Adaboost dan lain - lain untuk memprediksi Diagnosis Stroke.
 - Menggunakan metrik evaluasi seperti akurasi, precision, recall, dan F1-score untuk menilai performa masing-masing model. (Optional) Hyperparameter tuning dapat dilakukan pada model yang menunjukkan potensi akurasi tinggi untuk lebih meningkatkan performanya jika dibutuhkan.
 
 # Data Understanding
@@ -114,7 +114,7 @@ Pada tahap pemodelan, beberapa algoritma digunakan, salah satunya adalah Random 
 Hyperparameter Tuning bertujuan untuk meningkatkan kinerja model dengan mengatur parameter-parameter pada algoritma yang digunakan. Dalam kasus ini, pencarian kombinasi hyperparameter terbaik dilakukan menggunakan Grid Search. Metrik yang digunakan untuk menilai performa Grid Search adalah Mean Cross Validation (CV). Setiap kemungkinan kombinasi nilai hyperparameter akan dievaluasi menggunakan metrik CV, dan kombinasi dengan skor CV tertinggi akan diterapkan pada pelatihan model.
 
 # Evaluation
-Setelah melakukan beberapa pelatihan model `Random Forest` dan moel lainnya pada dataset `train_set`, evaluasi dilakukan menggunakan metrik `classification_report` dari library `Scikit-learn` untuk menilai performa model pada dataset test. Fungsi `classification_report` menampilkan beberapa metrik penting, yaitu:
+Setelah melakukan beberapa pelatihan model `Random Forest` dan model lainnya pada dataset `train_set`, evaluasi dilakukan menggunakan metrik `classification_report` dari library `Scikit-learn` untuk menilai performa model pada dataset test. Fungsi `classification_report` menampilkan beberapa metrik penting, yaitu:
 
 - Presisi digunakan untuk mengukur seberapa dapat diandalkan sebuah model ketika memberikan prediksi terhadap suatu kelas/_target_. 
 	Rumus Precison:
@@ -152,8 +152,54 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 
 - Macro dan Weighted Average: Macro average dan weighted average untuk presisi, recall, dan F1-score semuanya adalah 1.0, menunjukkan bahwa performa model stabil di seluruh kelas tanpa adanya bias terhadap salah satu kelas.
 
+## Model Menggunakan Decision Tree
+**Akurasi: 1.0**
+| Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
+|-------------|---------|---------|-----------|--------------|
+| Precision   | 1.00    | 1.00    | 1.00      | 1.00         |
+| Recall      | 1.00    | 1.00    | 1.00      | 1.00         |
+| F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
+| Support     | 1155    | 1131    | 2286      | 2286         |
+
+- Precision Ini adalah proporsi prediksi benar dari total prediksi positif yang dibuat oleh model. Class 0 dan Class 1 masing-masing memiliki precision 1.00, yang berarti model tidak menghasilkan kesalahan dalam prediksi kelas positifnya.
+
+- Recall Ini menunjukkan seberapa baik model menangkap semua contoh aktual dari setiap kelas. Nilai recall 1.00 untuk kedua kelas menunjukkan bahwa model berhasil mengidentifikasi semua contoh untuk kedua kelas tanpa ada yang terlewat.
+  
+- F1-Score Ini adalah rata-rata harmonik dari precision dan recall, yang berguna untuk mengukur performa model dalam menangani ketidakseimbangan antar kelas. F1-score 1.00 untuk kedua kelas menunjukkan model memiliki performa sangat baik tanpa trade-off antara precision dan recall.
+  
+- Support Ini adalah jumlah contoh dalam data untuk masing-masing kelas. Support 1155 untuk Class 0 dan 1131 untuk Class 1 menunjukkan jumlah data masing-masing kelas, dengan total 2286.
+
+- Accuracy: Akurasi model adalah 1.0, yang menunjukkan bahwa model Decision Tree berhasil memprediksi setiap data uji dengan benar tanpa kesalahan.
+
+## Model Menggunakan AdaBoost
+**Accuracy**: 1.0
+| Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
+|-------------|---------|---------|-----------|--------------|
+| Precision   | 1.00    | 1.00    | 1.00      | 1.00         |
+| Recall      | 1.00    | 1.00    | 1.00      | 1.00         |
+| F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
+| Support     | 1155    | 1131    | 2286      | 2286         |
+
+- AdaBoost sering menggunakan decision stumps atau decision trees sederhana sebagai base learner
+- dataset memiliki kelas-kelas yang sangat mudah dipisahkan dengan batas yang jelas di antara keduanya, AdaBoost akan lebih mudah mencapai akurasi sempurna
+- Karena dataset memiliki relevansi yang tinggi maka model dapat belajar.
+
+## Model Menggunakan KNN
+**Accuracy**: 0.4978
+| Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
+|-------------|---------|---------|-----------|--------------|
+| Precision   | 0.50    | 0.49    | 0.50      | 0.50         |
+| Recall      | 0.50    | 0.49    | 0.50      | 0.50         |
+| F1-Score    | 0.50    | 0.49    | 0.50      | 0.50         |
+| Support     | 1155    | 1131    | 2286      | 2286         |
+
+- KNN bekerja dengan mencari tetangga terdekat dari setiap data berdasarkan jarak di ruang fitur. Jika data dari kedua kelas (Class 0 dan Class 1) berada sangat dekat atau saling tumpang tindih di ruang fitur, maka model akan kesulitan membedakan kelas tersebut. Hal ini membuat prediksi KNN mendekati tebak-tebakan acak
+- Jika K terlalu kecil, model dapat menjadi sangat sensitif terhadap noise. Sehingga mendapat Akurasi yang rendah
+- Jika dataset memiliki banyak fitur, efek dari jarak Euclidean menjadi kurang efektif untuk memisahkan kelas
+
 ## Model Hyperparameter Tuning
-- **Accuracy**: 0.9991
+dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan terhadapat Model. Nilai terbaik yang diperoleh oleh Hyperparameter Tuning adalah :
+**Accuracy**: 0.9991
 
 | Class | Precision | Recall | F1-Score | Support |
 |-------|-----------|--------|----------|--------|
@@ -166,13 +212,17 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 Dalam program di atas, hyperparameter tuning dilakukan pada model K-Nearest Neighbors (KNN) menggunakan GridSearchCV dari pustaka sklearn
 - Parameter ini menentukan jumlah tetangga terdekat yang akan dipertimbangkan untuk menentukan kelas dari titik data yang baru.
 - Dalam grid search ini, nilai yang diuji adalah: [3, 5, 7, 9, 11, 15, 20]. Memilih jumlah tetangga yang tepat penting untuk mencapai keseimbangan antara bias dan varians.
-- GridSearchCV Digunakan untuk menguji kombinasi dari berbagai nilai hyperparameter di atas. Dengan menggunakan metode cross-validation (cv=5), model dievaluasi menggunakan 5 bagian data yang berbeda untuk memastikan bahwa hasil yang diperoleh tidak bergantung pada pembagian data tertentu.
+- GridSearchCV Digunakan untuk menguji kombinasi dari berbagai nilai hyperparameter di atas. Dengan menggunakan metode cross-validation `(cv=5)`, model dievaluasi menggunakan 5 bagian data yang berbeda untuk memastikan bahwa hasil yang diperoleh tidak bergantung pada pembagian data tertentu.
 - Scoring dilakukan berdasarkan scoring='accuracy', yang berarti model yang memiliki akurasi tertinggi pada data pelatihan (setelah penyeimbangan kelas dengan SMOTE) akan dipilih sebagai model terbaik
 
 # Kesimpulan
-Kesimpulan dari model Random Forest di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan.
+Kesimpulan dari model Random Forest, Adaboost, Decision Tree, dan KNN(Hyperpeter Tuning di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan.
 - Membuat model Machine Learning yang dapat melakukan prediksi Diagnosisi Stroke.
 - Yang Mempengaruhi Diagnosis Stroke salah satung adalah Dietary Habits, dll.
+- Model dengan Akurasi tinggi adalah model randomforest, adaboost, Decision Tree, da
+
+## Evaluasi Business Understanding
+
 
 # Referensi
 Hasan, T. F., Rabinstein, A. A., Middlebrooks, E. H., Haranhalli, N., Silliman, S. L., Meschia, J. F., & Tawk, R. G. (2018, April). Diagnosis and management of acute ischemic stroke. In Mayo Clinic Proceedings (Vol. 93, No. 4, pp. 523-538). Elsevier.
