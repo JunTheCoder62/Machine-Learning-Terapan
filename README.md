@@ -9,12 +9,12 @@ Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kese
 ## Problem Statement
 - Variable apa saja yang Berpengaruh dalam diagnosis Stroke ?
 - Bagaimana membuat sebuah model untuk memprediksi Seseorang yang memiliki risiko Diagnosis stroke menggunakan data yang didapat ?
-- Model Machine Learning apa yang dapat memprediksi Stroke dengan Akurasi yang Tinggi ?
+-  Metrics apa saja yang mempengaruhi performance model sehingga mendapat model terbaik ?
 
 ## Goals
 - Mengetahui variable yang memiliki korelasi dengan Stroke.
-- Membuat dan membangun model machine learning sederhana untuk memprediksi Diagnosis Stroke.
-- Membuat Model Machine Learning apa yang dapat memprediksi Stroke dengan Akurasi yang Tinggi.
+- Membuat dan membangun model machine learning sederhana untuk memprediksi Diagnosis Stroke dan membuat model terbaik.
+- Dapat menentukan Metrics yang mempengaruhi performance model dan mendapat model terbaik.
 
 ## Solution Statements
 - Dengan Univariate dan Multivariate anlysis untuk memahami variable dan hubungan corelasi dengan variable lain.
@@ -198,7 +198,7 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 - Jika dataset memiliki banyak fitur, efek dari jarak Euclidean menjadi kurang efektif untuk memisahkan kelas
 
 ## Model Hyperparameter Tuning
-dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan terhadapat Model. Nilai terbaik yang diperoleh oleh Hyperparameter Tuning adalah :
+dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan terhadapat Model. **Nilai terbaik yang diperoleh oleh Hyperparameter Tuning adalah:** 
 **Accuracy**: 0.9991
 
 | Class | Precision | Recall | F1-Score | Support |
@@ -216,12 +216,22 @@ Dalam program di atas, hyperparameter tuning dilakukan pada model K-Nearest Neig
 - Scoring dilakukan berdasarkan scoring='accuracy', yang berarti model yang memiliki akurasi tertinggi pada data pelatihan (setelah penyeimbangan kelas dengan SMOTE) akan dipilih sebagai model terbaik
 
 # Kesimpulan
-Kesimpulan dari model Random Forest, Adaboost, Decision Tree, dan KNN(Hyperpeter Tuning di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan.
+Kesimpulan dari model Random Forest, Adaboost, Decision Tree, dan KNN(hyperparameter Tuning KNN model) di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan.
+
 - Membuat model Machine Learning yang dapat melakukan prediksi Diagnosisi Stroke.
-- Yang Mempengaruhi Diagnosis Stroke salah satung adalah Dietary Habits, dll.
-- Model dengan Akurasi tinggi adalah model randomforest, adaboost, Decision Tree, da
+- Yang Mempengaruhi Diagnosis Stroke salah satunya adalah Dietary Habits.
+- Model dengan Akurasi tinggi adalah model randomforest, adaboost, Decision Tree, dan KNN(Hyperparameter Tuning)
+
+## Perbandingan model Setelah menggunakan Hyperparameter Tuning
+Jika kita bandingkan dua model K-Nearest Neighbors (KNN) yang berbeda, satu dengan akurasi 0.5 dan satu lagi dengan akurasi 0.9 setelah hyperparameter tuning, kita bisa melihat bahwa tuning parameter memang berpengaruh besar terhadap performa model. 
+- Akurasi sebelum dituning mendapat nilai Akurasi 0.4978
+- Akurasi Setelah dituning mendapat nilai Akurasi 0.9991
 
 ## Evaluasi Business Understanding
+- Dengan Univariate dan Multivariate anlysis untuk memahami variable dan hubungan corelasi dengan variable lain, dengan begitu kita dapat menentukan fitur yang akan digunakan dalam model.
+- Model yang dibuat dapat melakukan prediksi yang akurat dengan Machine Learning seperti model Decision Tree, Random Forest, Adaboost dan KNN(Hyperparameter Tuning) untuk memprediksi Diagnosis Stroke
+- Metrics yang mempengaruhi adalah data yang didapat salah satunya `Dietary Habits`, dan performance model yang digunakan. Sehinggan model terbaik adalah model Decision Tree, Random Forest, Adaboost
+
 
 
 # Referensi
