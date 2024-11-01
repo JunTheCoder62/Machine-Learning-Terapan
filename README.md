@@ -131,6 +131,7 @@ $\dfrac{2 \ast Precision \ast Recall}{Precision+Recall}$
 
 Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, mengidentifikasi tingkat keakuratan dalam klasifikasi tiap kelas, dan keseimbangan antara presisi serta recall.
 
+## Model Menggunakan Random Forest
 **Akurasi: 1.0**
 
 |              | Precision | Recall | F1-Score | Support |
@@ -150,6 +151,23 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 - F1-Score: Dengan presisi dan recall yang sama-sama mencapai 1.0, F1-score untuk kedua kelas juga berada pada 1.0, menunjukkan keseimbangan yang sempurna antara presisi dan recall.
 
 - Macro dan Weighted Average: Macro average dan weighted average untuk presisi, recall, dan F1-score semuanya adalah 1.0, menunjukkan bahwa performa model stabil di seluruh kelas tanpa adanya bias terhadap salah satu kelas.
+
+## Model Hyperparameter Tuning
+- **Accuracy**: 0.9991
+
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|--------|
+| 0     | 1.00      | 1.00   | 1.00     | 1155   |
+| 1     | 1.00      | 1.00   | 1.00     | 1131   |
+| **Accuracy**       | -         | -      | **1.00**     | **2286**   |
+| **Macro Avg**     | 1.00      | 1.00   | 1.00     | 2286   |
+| **Weighted Avg**  | 1.00      | 1.00   | 1.00     | 2286   |
+
+Dalam program di atas, hyperparameter tuning dilakukan pada model K-Nearest Neighbors (KNN) menggunakan GridSearchCV dari pustaka sklearn
+- Parameter ini menentukan jumlah tetangga terdekat yang akan dipertimbangkan untuk menentukan kelas dari titik data yang baru.
+- Dalam grid search ini, nilai yang diuji adalah: [3, 5, 7, 9, 11, 15, 20]. Memilih jumlah tetangga yang tepat penting untuk mencapai keseimbangan antara bias dan varians.
+- GridSearchCV Digunakan untuk menguji kombinasi dari berbagai nilai hyperparameter di atas. Dengan menggunakan metode cross-validation (cv=5), model dievaluasi menggunakan 5 bagian data yang berbeda untuk memastikan bahwa hasil yang diperoleh tidak bergantung pada pembagian data tertentu.
+- Scoring dilakukan berdasarkan scoring='accuracy', yang berarti model yang memiliki akurasi tertinggi pada data pelatihan (setelah penyeimbangan kelas dengan SMOTE) akan dipilih sebagai model terbaik
 
 # Kesimpulan
 Kesimpulan dari model Random Forest di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan.
