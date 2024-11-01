@@ -199,6 +199,10 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 
 ## Model Hyperparameter Tuning
 dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan terhadapat Model. **Nilai terbaik yang diperoleh oleh Hyperparameter Tuning adalah:** 
+
+`Best Hyperparameters: {'algorithm': 'brute', 'n_neighbors': 11, 'weights': 'uniform'}`
+`Best Cross-Validation Score: 1.0`
+
 **Accuracy**: 0.9991
 
 | Class | Precision | Recall | F1-Score | Support |
