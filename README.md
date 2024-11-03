@@ -26,26 +26,32 @@ Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kese
 |---|---|
 |__Nama dataset__| Medical Stroke Prediction |
 |__Deskripsi dataset__| Dataset containing Stroke Prediction metrics |
-|__Jumlah sampel__| 15000  |
+|__Jumlah Data__| 15000  |
 |__Jumlah variabel__| 22  |
 
-|   |   |
-|---|---|
-|gender| Mengidentifikasi jenis kelamin individu, biasanya dicatat sebagai "Male" atau "Female." |
-|age|
-|Hypertension| Mengindikasikan apakah individu memiliki riwayat hipertensi (tekanan darah tinggi) |
-|heart_disease| Mengindikasian apakah individu memiliki riwayat penyakit jantung |
-|ever_married| Menikah atau Belum Menikah |
-|work_type| Jenis Pekerjaan |
-|Residence_type| Sektor Perumahan |
-|avg_glucose_level| Rata - rata nilai Glucosa individu |
-|bmi| Berat Badan |
-|smoking_status| Status pengguna rokok |
-|stroke| Riwayat Stroke |
+| Nama Data  | Deskripsi data| Encoded data  |
+|---|---|---|
+|gender| Mengidentifikasi jenis kelamin individu, biasanya dicatat sebagai "Male" atau "Female." | 1 & 0|
+|age| variable umur dalam data| - |
+|Hypertension| Mengindikasikan apakah individu memiliki riwayat hipertensi (tekanan darah tinggi) | 0 & 1 |
+|heart_disease| Mengindikasian apakah individu memiliki riwayat penyakit jantung |0 & 1|
+|ever_married| Menikah atau Belum Menikah | - |
+|Alcohol Intake| Kebiasaan Mengkonsumsi Alkohol|3, 1, 2, 0|
+|work_type| Jenis Pekerjaan |2, 0, 1|
+|Residence_type| Sektor Perumahan |0, 1|
+|avg_glucose_level| Rata - rata nilai Glucosa individu | - |
+|bmi| Berat Badan | - |
+|smoking_status| Status pengguna rokok |2, 0, 1|
+|Diagnosis| Riwayat Stroke |1, 0|
 
 
-# Exploratory Data Anlysis (EDA)
-Dalam proses Exploratory Data Anlysis (EDA) bertujuan untuk memahami dan menemukan pola dalam data yang digunakan dalam menjelaskan corelasi antar data. Dalam Exploratory Data Analysis dapat dibagi menjadi dua bagian yaitu Univariate dan Multivariate Analysis.
+# Data Preperation
+## Exploratory Data Anlysis (EDA)
+Dalam proses Exploratory Data Anlysis (EDA) bertujuan untuk memahami dan menemukan pola dalam data yang digunakan dalam menjelaskan corelasi antar data. Dalam Exploratory Data Analysis dapat dibagi menjadi dua bagian yaitu Univariate dan Multivariate Analysis. 
+
+## Cleaning Data
+Cleaning data adalah proses penting dalam analisis data dan machine learning. Tujuan utamanya adalah untuk meningkatkan kualitas data sehingga model yang dibangun dapat menghasilkan prediksi yang lebih akurat dan dapat diandalkan. Dalam tahapan ini ada beberapa cara untuk cleaning data seperti cleaning `missing value`, menghapus data yang memiliki `duplikat`, dan menghapus data yang tidak relevan agar model memiliki prediksi yang akurat. salah satunya adalah terdapat beberapa data yang tidak releven seperti `Never Work` dalam kategori data `Work Type`.
+
 
 ## Univariate Analysis
 ![New data 2](https://github.com/user-attachments/assets/22fd2858-c7ae-4df8-99e2-847e918f3cc6)
@@ -61,7 +67,6 @@ Pada grafik tersebut dapat terlihat bahwa Gender Male Memiliki Stroke Paling Ban
 Gambar .3 Grafik Matriks Korelasi
 Pada Grafik Korelasi diatas dapat korelasi fitur 'Diagnosis' dan 'Deitary Habits' Memiliki Korelasi yang tinggi, sehingga dapat digunakan untuk melakukan Prediksi Machine Learning.
 
-# Data Preperation
 ## Encoding Features
 Data diubah ke bentuk Numeric agar dapat digunakan untuk memprediksi Stroke. Mengubah data dapat dilakukan Dengan menggunakan LabelEncoder dari library sklearn atau Dummies pandas yang berupa categoriacal menjadi Numerical.
 
@@ -110,26 +115,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
 ## Model Random Forest
 Pada tahap pemodelan, beberapa algoritma digunakan, salah satunya adalah Random Forest untuk membangun model prediksi. Random Forest adalah algoritma ensemble berbasis pohon keputusan yang bekerja dengan cara membuat sejumlah besar pohon keputusan (decision trees) selama proses pelatihan. Setiap pohon dalam hutan acak dilatih dengan subset acak dari data, baik dalam hal fitur maupun sampel, dan hasil akhirnya didapatkan dengan mengambil rata-rata (untuk regresi) atau melakukan voting (untuk klasifikasi) dari semua pohon tersebut.
 
-## Model Hyperparameter Tuning
-Hyperparameter Tuning bertujuan untuk meningkatkan kinerja model dengan mengatur parameter-parameter pada algoritma yang digunakan. Dalam kasus ini, pencarian kombinasi hyperparameter terbaik dilakukan menggunakan Grid Search. Metrik yang digunakan untuk menilai performa Grid Search adalah Mean Cross Validation (CV). Setiap kemungkinan kombinasi nilai hyperparameter akan dievaluasi menggunakan metrik CV, dan kombinasi dengan skor CV tertinggi akan diterapkan pada pelatihan model.
-
-# Evaluation
-Setelah melakukan beberapa pelatihan model `Random Forest` dan model lainnya pada dataset `train_set`, evaluasi dilakukan menggunakan metrik `classification_report` dari library `Scikit-learn` untuk menilai performa model pada dataset test. Fungsi `classification_report` menampilkan beberapa metrik penting, yaitu:
-
-- Presisi digunakan untuk mengukur seberapa dapat diandalkan sebuah model ketika memberikan prediksi terhadap suatu kelas/_target_. 
-	Rumus Precison:
-
-$\dfrac{True Positive}{True Positive + False Positive}$
-- _Recall_ digunakan untuk mengukur kemampuan model untuk memprediksi kelas _True Positive
-	Rumus Recall:
-
-$\dfrac{True Positive}{True Positive + False Negative}$
-- _F1-Score_ digunakan untuk mencari titik seimbang antara Presisi dan _Recall
-	Rumus F1-Score:
-
-$\dfrac{2 \ast Precision \ast Recall}{Precision+Recall}$
-
-Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, mengidentifikasi tingkat keakuratan dalam klasifikasi tiap kelas, dan keseimbangan antara presisi serta recall.
 
 ## Model Menggunakan Random Forest
 **Akurasi: 1.0**
@@ -246,24 +231,58 @@ Dalam program di atas, hyperparameter tuning dilakukan pada model K-Nearest Neig
 - GridSearchCV Digunakan untuk menguji kombinasi dari berbagai nilai hyperparameter di atas. Dengan menggunakan metode cross-validation `(cv=5)`, model dievaluasi menggunakan 5 bagian data yang berbeda untuk memastikan bahwa hasil yang diperoleh tidak bergantung pada pembagian data tertentu.
 - Scoring dilakukan berdasarkan scoring='accuracy', yang berarti model yang memiliki akurasi tertinggi pada data pelatihan (setelah penyeimbangan kelas dengan SMOTE) akan dipilih sebagai model terbaik
 
-# Kesimpulan
-Kesimpulan dari model Random Forest, Adaboost, Decision Tree, dan KNN(hyperparameter Tuning KNN model) di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan.
 
-- Membuat model Machine Learning yang dapat melakukan prediksi Diagnosisi Stroke.
-- Yang Mempengaruhi Diagnosis Stroke salah satunya adalah Dietary Habits.
-- Model dengan Akurasi tinggi adalah model randomforest, adaboost, Decision Tree, dan KNN(Hyperparameter Tuning)
+## Model Hyperparameter Tuning
+Hyperparameter Tuning bertujuan untuk meningkatkan kinerja model dengan mengatur parameter-parameter pada algoritma yang digunakan. Dalam kasus ini, pencarian kombinasi hyperparameter terbaik dilakukan menggunakan Grid Search. Metrik yang digunakan untuk menilai performa Grid Search adalah Mean Cross Validation (CV). Setiap kemungkinan kombinasi nilai hyperparameter akan dievaluasi menggunakan metrik CV, dan kombinasi dengan skor CV tertinggi akan diterapkan pada pelatihan model.
 
 ## Perbandingan model Setelah menggunakan Hyperparameter Tuning
 Jika kita bandingkan dua model K-Nearest Neighbors (KNN) yang berbeda, satu dengan akurasi 0.5 dan satu lagi dengan akurasi 0.9 setelah hyperparameter tuning, kita bisa melihat bahwa tuning parameter memang berpengaruh besar terhadap performa model. 
 - Akurasi sebelum dituning mendapat nilai Akurasi 0.4978
 - Akurasi Setelah dituning mendapat nilai Akurasi 0.9991
 
+
+# Evaluation
+Setelah melakukan beberapa pelatihan model `Random Forest` dan model lainnya pada dataset `train_set`, evaluasi dilakukan menggunakan metrik `classification_report` dari library `Scikit-learn` untuk menilai performa model pada dataset test. Fungsi `classification_report` menampilkan beberapa metrik penting, yaitu:
+
+- Presisi digunakan untuk mengukur seberapa dapat diandalkan sebuah model ketika memberikan prediksi terhadap suatu kelas/_target_. 
+	Rumus Precison:
+
+$\dfrac{True Positive}{True Positive + False Positive}$
+- _Recall_ digunakan untuk mengukur kemampuan model untuk memprediksi kelas _True Positive
+	Rumus Recall:
+
+$\dfrac{True Positive}{True Positive + False Negative}$
+- _F1-Score_ digunakan untuk mencari titik seimbang antara Presisi dan _Recall
+	Rumus F1-Score:
+
+$\dfrac{2 \ast Precision \ast Recall}{Precision+Recall}$
+
+Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, mengidentifikasi tingkat keakuratan dalam klasifikasi tiap kelas, dan keseimbangan antara presisi serta recall.
+
+## Metrics 
+Metrik ini memberikan gambaran yang lebih jelas tentang bagaimana model bekerja dan seberapa baik ia mengklasifikasikan data.
+
+- Akurasi menunjukkan persentase prediksi yang benar dari total prediksi.
+- Presisi memberikan informasi tentang seberapa tepat model dalam mengklasifikasikan kelas positif.
+- Recall menunjukkan kemampuan model untuk mendeteksi semua instance positif.
+- F1-score memberikan gambaran seimbang antara presisi dan recall, yang sangat penting dalam konteks klasifikasi yang mungkin tidak seimbang.
+
+## Korelasi Variabel
+Dari grafik matriks korelasi, kita bisa melihat bahwa meskipun tidak semua fitur menunjukkan korelasi yang tinggi dengan diagnosis stroke, hampir semua fitur memiliki korelasi tertentu, meskipun kecil. Misalnya, "Dietary Habits" menunjukkan korelasi yang signifikan dan positif terhadap diagnosis stroke, sehingga menjadi fitur yang paling berpengaruh.
+
+Namun, penting untuk dicatat bahwa meskipun "Dietary Habits" adalah fitur utama, variabel lain seperti "Hypertension," "Heart Disease," dan "Smoking Status" juga memiliki kontribusi yang tidak bisa diabaikan. Kesimpulan ini penting untuk diambil sebagai informasi bahwa faktor-faktor lain turut serta dalam mempengaruhi risiko stroke.
+
 ## Evaluasi Business Understanding
 - Dengan Univariate dan Multivariate anlysis untuk memahami variable dan hubungan corelasi dengan variable lain, dengan begitu kita dapat menentukan fitur yang akan digunakan dalam model.
 - Model yang dibuat dapat melakukan prediksi yang akurat dengan Machine Learning seperti model Decision Tree, Random Forest, Adaboost dan KNN(Hyperparameter Tuning) untuk memprediksi Diagnosis Stroke
 - Metrics yang mempengaruhi adalah data yang didapat salah satunya `Dietary Habits`, dan performance model yang digunakan. Sehinggan model terbaik adalah model Decision Tree, Random Forest, Adaboost
 
+# Kesimpulan
+Kesimpulan dari model Random Forest, Adaboost, Decision Tree, dan KNN(hyperparameter Tuning KNN model) di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan. 
 
+- Membuat model Machine Learning yang dapat melakukan prediksi Diagnosisi Stroke.
+- Yang Mempengaruhi Diagnosis Stroke salah satunya adalah Dietary Habits.
+- Model dengan Akurasi tinggi adalah model randomforest, adaboost, Decision Tree, dan KNN(Hyperparameter Tuning)
 
 # Referensi
 Hasan, T. F., Rabinstein, A. A., Middlebrooks, E. H., Haranhalli, N., Silliman, S. L., Meschia, J. F., & Tawk, R. G. (2018, April). Diagnosis and management of acute ischemic stroke. In Mayo Clinic Proceedings (Vol. 93, No. 4, pp. 523-538). Elsevier.
