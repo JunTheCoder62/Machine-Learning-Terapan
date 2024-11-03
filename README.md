@@ -142,6 +142,7 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | Macro Avg    | 1.00      | 1.00   | 1.00     | 2286    |
 | Weighted Avg | 1.00      | 1.00   | 1.00     | 2286    |
 
+**Cara Kerja Model :**
 - Akurasi Model: Model ini mencapai akurasi 1.0 atau 100%, yang menunjukkan bahwa semua prediksi model pada data uji adalah benar.
 
 - Presisi: Presisi untuk kedua kelas (0 dan 1) mencapai 1.0, yang berarti model tidak membuat kesalahan dalam memprediksi instance sebagai positif atau negatif untuk masing-masing kelas. Presisi tinggi ini menunjukkan bahwa model mampu membedakan kelas dengan sangat baik.
@@ -152,6 +153,12 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 
 - Macro dan Weighted Average: Macro average dan weighted average untuk presisi, recall, dan F1-score semuanya adalah 1.0, menunjukkan bahwa performa model stabil di seluruh kelas tanpa adanya bias terhadap salah satu kelas.
 
+**Parameter Default :**
+- max_depth (default = None): Batas maksimum kedalaman pohon. Jika None, pohon akan terus berkembang sampai semua data terklasifikasi.
+- min_samples_split (default = 2): Jumlah minimum sampel yang diperlukan untuk membagi node.
+- criterion (default = 'gini'): Kriteria yang digunakan untuk menentukan pembagian terbaik (misalnya, 'gini' atau 'entropy').
+- min_samples_leaf (default = 1): Jumlah minimum sampel yang harus ada pada sebuah daun (leaf node).
+
 ## Model Menggunakan Decision Tree
 **Akurasi: 1.0**
 | Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
@@ -161,6 +168,7 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
 | Support     | 1155    | 1131    | 2286      | 2286         |
 
+**Cara Kerja Model :**
 - Precision Ini adalah proporsi prediksi benar dari total prediksi positif yang dibuat oleh model. Class 0 dan Class 1 masing-masing memiliki precision 1.00, yang berarti model tidak menghasilkan kesalahan dalam prediksi kelas positifnya.
 
 - Recall Ini menunjukkan seberapa baik model menangkap semua contoh aktual dari setiap kelas. Nilai recall 1.00 untuk kedua kelas menunjukkan bahwa model berhasil mengidentifikasi semua contoh untuk kedua kelas tanpa ada yang terlewat.
@@ -171,6 +179,12 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 
 - Accuracy: Akurasi model adalah 1.0, yang menunjukkan bahwa model Decision Tree berhasil memprediksi setiap data uji dengan benar tanpa kesalahan.
 
+**Parameter Default :**
+- n_neighbors (default = 5): Jumlah tetangga terdekat yang dipertimbangkan untuk klasifikasi.
+- metric (default = 'minkowski'): Jarak yang digunakan untuk menentukan kedekatan (misalnya, Euclidean atau Manhattan).
+- weights (default = 'uniform'): Menentukan apakah semua tetangga memiliki bobot yang sama ('uniform') atau diberi bobot berdasarkan jaraknya ('distance').
+
+
 ## Model Menggunakan AdaBoost
 **Accuracy**: 1.0
 | Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
@@ -180,9 +194,15 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
 | Support     | 1155    | 1131    | 2286      | 2286         |
 
+**Cara Kerja Model :**
 - AdaBoost sering menggunakan decision stumps atau decision trees sederhana sebagai base learner
 - dataset memiliki kelas-kelas yang sangat mudah dipisahkan dengan batas yang jelas di antara keduanya, AdaBoost akan lebih mudah mencapai akurasi sempurna
 - Karena dataset memiliki relevansi yang tinggi maka model dapat belajar.
+
+**Parameter Default :**
+- n_estimators (default = 50): Jumlah model lemah (estimators) yang akan digabungkan.
+- learning_rate (default = 1.0): Mengontrol kontribusi masing-masing model terhadap prediksi akhir. Nilai yang lebih rendah membuat model lebih stabil tetapi butuh lebih banyak iterasi.
+- base_estimator (default = DecisionTreeClassifier dengan kedalaman maksimum = 1): Model dasar yang digunakan dalam proses boosting.
 
 ## Model Menggunakan KNN
 **Accuracy**: 0.4978
@@ -193,9 +213,16 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | F1-Score    | 0.50    | 0.49    | 0.50      | 0.50         |
 | Support     | 1155    | 1131    | 2286      | 2286         |
 
+**Cara Kerja Model :**
 - KNN bekerja dengan mencari tetangga terdekat dari setiap data berdasarkan jarak di ruang fitur. Jika data dari kedua kelas (Class 0 dan Class 1) berada sangat dekat atau saling tumpang tindih di ruang fitur, maka model akan kesulitan membedakan kelas tersebut. Hal ini membuat prediksi KNN mendekati tebak-tebakan acak
 - Jika K terlalu kecil, model dapat menjadi sangat sensitif terhadap noise. Sehingga mendapat Akurasi yang rendah
 - Jika dataset memiliki banyak fitur, efek dari jarak Euclidean menjadi kurang efektif untuk memisahkan kelas
+
+**Parameter Default :**
+- n_neighbors (default = 5): Jumlah tetangga terdekat yang dipertimbangkan untuk klasifikasi.
+- metric (default = 'minkowski'): Jarak yang digunakan untuk menentukan kedekatan (misalnya, Euclidean atau Manhattan).
+- weights (default = 'uniform'): Menentukan apakah semua tetangga memiliki bobot yang sama ('uniform') atau diberi bobot berdasarkan jaraknya ('distance').
+
 
 ## Model Hyperparameter Tuning
 dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan terhadapat Model. **Nilai terbaik yang diperoleh oleh Hyperparameter Tuning adalah:** 
