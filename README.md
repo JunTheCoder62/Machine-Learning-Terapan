@@ -67,6 +67,7 @@ Pada Grafik Korelasi diatas dapat korelasi fitur `Diagnosis` dan `Deitary Habits
 
 ## Outlier
 ![New data 4](https://github.com/user-attachments/assets/66b9f86d-c7fb-4c65-a5ac-7292cca042d3)
+
 Gambar .4 Ouliers
 Dalam gambar diatas terlihat bahwa data tidak memiliki outliers yang terdeteksi.
 
@@ -288,6 +289,12 @@ Namun, penting untuk dicatat bahwa meskipun "Dietary Habits" adalah fitur utama,
 - Dengan Univariate dan Multivariate anlysis untuk memahami variable dan hubungan corelasi dengan variable lain, dengan begitu kita dapat menentukan fitur yang akan digunakan dalam model.
 - Model yang dibuat dapat melakukan prediksi yang akurat dengan Machine Learning seperti model Decision Tree, Random Forest, Adaboost dan KNN(Hyperparameter Tuning) untuk memprediksi Diagnosis Stroke
 - Metrics yang mempengaruhi adalah data yang didapat salah satunya `Dietary Habits`, dan performance model yang digunakan. Sehinggan model terbaik adalah model Decision Tree, Random Forest, Adaboost
+
+**Problem statement** yang diajukan berfokus pada pengembangan model yang mampu memprediksi risiko stroke dengan akurasi tinggi. Berdasarkan hasil evaluasi, model yang diterapkan, terutama Decision Tree, Random Forest, dan AdaBoost, menunjukkan akurasi yang sempurna (1.0). Hal ini membuktikan bahwa model tersebut efektif dalam menjawab pertanyaan awal mengenai kemampuan untuk memprediksi stroke.
+
+**Goals** dari proyek ini adalah untuk meningkatkan kemampuan prediksi dan pemahaman tentang faktor-faktor yang berkontribusi terhadap stroke. Dengan metrik evaluasi seperti presisi, recall, dan F1-score, model yang dikembangkan tidak hanya mampu mengklasifikasikan data dengan akurat tetapi juga memberikan wawasan mengenai variabel yang paling berpengaruh, seperti "Dietary Habits," "Hypertension," "Heart Disease," dan "Smoking Status." Keberhasilan ini menunjukkan bahwa model tidak hanya mencapai, tetapi bahkan melebihi, ekspektasi yang diharapkan.
+
+**Dampak Solusi yang Diterapkan** termasuk penerapan machine learning dengan berbagai algoritma (Decision Tree, Random Forest, AdaBoost, dan KNN dengan hyperparameter tuning), berkontribusi pada pengembangan sistem yang lebih baik untuk memprediksi dan mengelola risiko stroke. Dengan akurasi yang tinggi, sistem ini dapat digunakan oleh praktisi kesehatan untuk memprioritaskan intervensi bagi individu yang berisiko tinggi, mengoptimalkan sumber daya, dan meningkatkan hasil kesehatan.
 
 # Kesimpulan
 Kesimpulan dari model Random Forest, Adaboost, Decision Tree, dan KNN(hyperparameter Tuning KNN model) di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan. 
