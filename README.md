@@ -21,12 +21,14 @@ Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kese
 - Menggunakan metrik evaluasi seperti akurasi, precision, recall, dan F1-score untuk menilai performa masing-masing model. (Optional) Hyperparameter tuning dapat dilakukan pada model yang menunjukkan potensi akurasi tinggi untuk lebih meningkatkan performanya jika dibutuhkan.
 
 # Data Understanding
+Pada projek ini saya menggunakan dataset yang saya peroleh dari Github yang berjudul stroke_prediction Dataset berisikan 15.000 baris catatan medis dengan 22 kolom dan file dataset ini memiliki ukuran sebesar 2.75 MB.
+
 |   |   |
 |---|---|
 |__Nama dataset__| Medical Stroke Prediction |
 |__Deskripsi dataset__| Dataset containing Stroke Prediction metrics |
 |__Jumlah Data__| 15000  |
-|__Jumlah variabel__| 22  |
+|__Jumlah Variable__| 22  |
 
 | Nama Data  | Deskripsi data| Encoded data  |
 |---|---|---|
@@ -43,13 +45,13 @@ Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kese
 |smoking_status| Status pengguna rokok |2, 0, 1|
 |Diagnosis| Riwayat Stroke |1, 0|
 
-**Source Dataset :** https://github.com/incribo-inc/stroke_prediction
 
 ## Exploratory Data Anlysis (EDA)
 Dalam proses Exploratory Data Anlysis (EDA) bertujuan untuk memahami dan menemukan pola dalam data yang digunakan dalam menjelaskan corelasi antar data. Dalam Exploratory Data Analysis dapat dibagi menjadi dua bagian yaitu Univariate dan Multivariate Analysis. 
+**Kondisis Data** dalam data yang ada terdapat 2500 data missing value dan 0 data duplikat. untuk mengatasi miss
 
 ## Univariate Analysis
-![New data 2](https://github.com/user-attachments/assets/22fd2858-c7ae-4df8-99e2-847e918f3cc6)
+![New data 2](https://github.com/user-attachments/assets/cd8ff344-5fac-4079-a2f6-653db8723a72)
 Gambar .1 Grafik Distribusi
 Dalam grafik diatas merupakan distribusi umur. kita dapat melihat bahwa umur 20+ tahun keatas memiliki Stroke.
 
@@ -58,7 +60,7 @@ Dalam grafik diatas merupakan distribusi umur. kita dapat melihat bahwa umur 20+
 Gambar .2 Grafik Fitur Gender
 Pada grafik tersebut dapat terlihat bahwa Gender Male Memiliki Stroke Paling Banyak.
 
-![New data 1](https://github.com/user-attachments/assets/bea9d180-264e-4bc0-9da4-96fbd819951d)
+![New data 1](https://github.com/user-attachments/assets/122bc5b2-e4c1-43a8-8d83-f2d01c5676a2)
 Gambar .3 Grafik Matriks Korelasi
 Pada Grafik Korelasi diatas dapat korelasi fitur `Diagnosis` dan `Deitary Habits` Memiliki Korelasi yang tinggi, sehingga dapat digunakan untuk melakukan Prediksi Machine Learning.
 
@@ -124,12 +126,6 @@ df['Cholesterol Levels'] = cholesterol_levels_encoder.fit_transform(df['Choleste
 df.head()
 ```
 
-Dengan Menggunakan Pandas.dummies :
-```Python
-df_encoder = pd.get_dummies(df[['Work Type', 'Residence Type', 'Smoking Status', 'Alcohol Intake', 'Physical Activity', 'Family History of Stroke', 'Dietary Habits', 'Diagnosis']], drop_first=True).astype(int)
-df_encoder.head()
-```
-
 | Age | Gender | Hypertension | Heart Disease | Work Type | Residence Type | Average Glucose Level | Body Mass Index (BMI) | Smoking Status | Alcohol Intake | Physical Activity | Stroke History | Family History of Stroke | Dietary Habits | Stress Levels | Blood Pressure Levels | Cholesterol Levels | Diagnosis |
 |-----|--------|--------------|---------------|-----------|----------------|------------------------|-----------------------|----------------|----------------|-------------------|----------------|--------------------------|----------------|---------------|-----------------------|--------------------|-----------|
 | 56  | 1      | 0            | 1             | 0         | 0              | 130.91                 | 22.37                 | 2              | 3              | 2                 | 0              | 1                        | 1              | 3.48          | 1869                  | 4096               | 1         |
@@ -142,7 +138,6 @@ Tahapan data preparation sangat penting dalam data analysis dan machine learning
 
 ## Split Dataset
 Pada tahap ini, dataset dibagi menjadi dua bagian: data training dan data testing. Data training berfungsi untuk melatih model machine learning. Dalam hal ini, data training dibagi lagi menjadi dua bagian, yaitu data tanpa fitur target `x_train` dan data yang hanya memiliki fitur target `y_train`. Begitu juga dengan data testing, yang dibagi menjadi data tanpa fitur target `x_test` dan data dengan fitur target saja `y_test`. Salah satu metode yang digunakan untuk membagi dataset menjadi empat bagian ini adalah `train_test_split()` dari library `sklearn`. Langkah ini penting untuk menyiapkan data yang diperlukan untuk mengevaluasi model, sehingga pengembang dapat mengetahui akurasi prediksi yang dihasilkan oleh model tersebut. 
-Dalam Tahapan ini dilakukan undersampling pada `X` dan `y` terlebih dahulu dengan `RandomUnderSampler()` untuk melakukan balance data, namun kemudian menggunakan `X` dan `y` asli untuk membagi data ke dalam train dan test set menjadi `X_resampled` dan `y_resampled`.
 
 ```Python
 # split data test dan train
@@ -157,6 +152,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     test_size=0.2, 
                                                     random_state=0)
 ```
+## Normalisasi Data & Balancing Data
+**Balancing Data** Tahapan ini dilakukan undersampling pada `X` dan `y` terlebih dahulu dengan `RandomUnderSampler()` untuk melakukan balance data, namun kemudian menggunakan `X` dan `y` asli untuk membagi data ke dalam train dan test set menjadi `X_resampled` dan `y_resampled`.
+
+**Normalisasi data** dalam tahap ini diperlukan karena dataset sering memiliki fitur dengan skala atau rentang nilai yang berbeda-beda, yang dapat menyebabkan masalah dalam pelatihan model dan interpretasi hasil. dalam proses ini juga fitur dalam model akan seimbang agar meningkatkan meningkatkan akurasi, efisiensi, dan stabilitas dari model yang dihasilkan.
+
 # Modelling
 ## Model Random Forest
 Pada tahap pemodelan, beberapa algoritma digunakan, salah satunya adalah Random Forest untuk membangun model prediksi. Random Forest adalah algoritma ensemble berbasis pohon keputusan yang bekerja dengan cara membuat sejumlah besar pohon keputusan (decision trees) selama proses pelatihan. Setiap pohon dalam hutan acak dilatih dengan subset acak dari data, baik dalam hal fitur maupun sampel, dan hasil akhirnya didapatkan dengan mengambil rata-rata (untuk regresi) atau melakukan voting (untuk klasifikasi) dari semua pohon tersebut. 
@@ -194,7 +194,6 @@ Hyperparameter Tuning bertujuan untuk meningkatkan kinerja model dengan mengatur
 Jika kita bandingkan dua model K-Nearest Neighbors (KNN) yang berbeda, satu dengan akurasi 0.5 dan satu lagi dengan akurasi 0.9 setelah hyperparameter tuning, kita bisa melihat bahwa tuning parameter memang berpengaruh besar terhadap performa model. 
 - Akurasi sebelum dituning mendapat nilai Akurasi 0.4978
 - Akurasi Setelah dituning mendapat nilai Akurasi 0.9991
-
 
 # Evaluation
 Setelah melakukan beberapa pelatihan model `Random Forest` dan model lainnya pada dataset `train_set`, evaluasi dilakukan menggunakan metrik `classification_report` dari library `Scikit-learn` untuk menilai performa model pada dataset test. Fungsi `classification_report` menampilkan beberapa metrik penting, yaitu:
