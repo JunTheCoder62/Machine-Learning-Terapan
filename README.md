@@ -5,7 +5,6 @@ Stroke adalah penyakit yang terjadi ketika suplai darah ke bagian otak terganggu
 Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kesehatan, karena mampu mengidentifikasi pola kompleks dari data medis yang mungkin sulit diamati oleh manusia. Teknologi ini dapat digunakan untuk memprediksi risiko stroke berdasarkan berbagai faktor, seperti gaya hidup, kondisi medis, dan kebiasaan sehari-hari dari pekerja swasta, PNS, dan pekerja mandiri
 
 # Business Understanding
-
 ## Problem Statement
 - Variable apa saja yang Berpengaruh dalam diagnosis Stroke ?
 - Bagaimana membuat sebuah model untuk memprediksi Seseorang yang memiliki risiko Diagnosis stroke menggunakan data yang didapat ?
@@ -44,6 +43,8 @@ Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kese
 |smoking_status| Status pengguna rokok |2, 0, 1|
 |Diagnosis| Riwayat Stroke |1, 0|
 
+**Source Dataset :** https://github.com/incribo-inc/stroke_prediction
+
 ## Exploratory Data Anlysis (EDA)
 Dalam proses Exploratory Data Anlysis (EDA) bertujuan untuk memahami dan menemukan pola dalam data yang digunakan dalam menjelaskan corelasi antar data. Dalam Exploratory Data Analysis dapat dibagi menjadi dua bagian yaitu Univariate dan Multivariate Analysis. 
 
@@ -64,7 +65,10 @@ Pada grafik tersebut dapat terlihat bahwa Gender Male Memiliki Stroke Paling Ban
 Gambar .3 Grafik Matriks Korelasi
 Pada Grafik Korelasi diatas dapat korelasi fitur `Diagnosis` dan `Deitary Habits` Memiliki Korelasi yang tinggi, sehingga dapat digunakan untuk melakukan Prediksi Machine Learning.
 
-
+## Outlier
+![New data 4](https://github.com/user-attachments/assets/66b9f86d-c7fb-4c65-a5ac-7292cca042d3)
+Gambar .4 Ouliers
+Dalam gambar diatas terlihat bahwa data tidak memiliki outliers yang terdeteksi.
 
 ## Rubrik / Kriteria Tambahan
 1. Memeriksa Struktur dan Ringkasan Data
@@ -84,28 +88,40 @@ Pada Grafik Korelasi diatas dapat korelasi fitur `Diagnosis` dan `Deitary Habits
    Metode: Gunakan matriks korelasi dan heatmap.
 
 # Data Preperation
-
-## Encoding Features
+## Encoding 
 Data diubah ke bentuk Numeric agar dapat digunakan untuk memprediksi Stroke. Mengubah data dapat dilakukan Dengan menggunakan LabelEncoder dari library sklearn atau Dummies pandas yang berupa categoriacal menjadi Numerical.
 
 Dengan Menggunakan LabelEncoder() :
 ```Python
-encoder = LabelEncoder()
-df['Gender'] = encoder.fit_transform(df['Gender'])
-df['Diagnosis'] = encoder.fit_transform(df['Diagnosis'])
-df['Work Type'] = encoder.fit_transform(df['Residence Type'])
-df['Smoking Status'] = encoder.fit_transform(df['Smoking Status'])
-df['Alcohol Intake'] = encoder.fit_transform(df['Alcohol Intake'])
-df['Physical Activity'] = encoder.fit_transform(df['Physical Activity'])
-df['Family History of Stroke'] = encoder.fit_transform(df['Family History of Stroke'])
-df['Dietary Habits'] = encoder.fit_transform(df['Diagnosis'])
-df['Residence Type'] = encoder.fit_transform(df['Residence Type'])
-df['Blood Pressure Levels'] = encoder.fit_transform(df['Blood Pressure Levels'])
-df['Cholesterol Levels'] = encoder.fit_transform(df['Cholesterol Levels'])
-df.head()
+gender_encoder = LabelEncoder()
+diagnosis_encoder = LabelEncoder()
+work_type_encoder = LabelEncoder()
+smoking_status_encoder = LabelEncoder()
+alcohol_intake_encoder = LabelEncoder()
+physical_activity_encoder = LabelEncoder()
+family_history_encoder = LabelEncoder()
+dietary_habits_encoder = LabelEncoder()
+residence_type_encoder = LabelEncoder()
+blood_pressure_encoder = LabelEncoder()
+cholesterol_levels_encoder = LabelEncoder()
 ```
+
 Penggunaan satu objek LabelEncoder untuk beberapa kolom dapat menyebabkan masalah karena setiap kali kita memanggil fit_transform(), LabelEncoder akan "belajar" label baru dan bisa merusak hasil encoding sebelumnya. Solusi terbaik adalah membuat instance LabelEncoder yang berbeda untuk setiap kolom atau menggunakan teknik mapping manual jika kita ingin memastikan konsistensi label.
 
+```Python
+df['Gender'] = gender_encoder.fit_transform(df['Gender'])
+df['Diagnosis'] = diagnosis_encoder.fit_transform(df['Diagnosis'])
+df['Work Type'] = work_type_encoder.fit_transform(df['Residence Type'])
+df['Smoking Status'] = smoking_status_encoder.fit_transform(df['Smoking Status'])
+df['Alcohol Intake'] = alcohol_intake_encoder.fit_transform(df['Alcohol Intake'])
+df['Physical Activity'] = physical_activity_encoder.fit_transform(df['Physical Activity'])
+df['Family History of Stroke'] = family_history_encoder.fit_transform(df['Family History of Stroke'])
+df['Dietary Habits'] = dietary_habits_encoder.fit_transform(df['Diagnosis'])
+df['Residence Type'] = residence_type_encoder.fit_transform(df['Residence Type'])
+df['Blood Pressure Levels'] = blood_pressure_encoder.fit_transform(df['Blood Pressure Levels'])
+df['Cholesterol Levels'] = cholesterol_levels_encoder.fit_transform(df['Cholesterol Levels'])
+df.head()
+```
 Dengan Menggunakan Pandas.dummies :
 ```Python
 df_encoder = pd.get_dummies(df[['Work Type', 'Residence Type', 'Smoking Status', 'Alcohol Intake', 'Physical Activity', 'Family History of Stroke', 'Dietary Habits', 'Diagnosis']], drop_first=True).astype(int)
@@ -123,7 +139,8 @@ df_encoder.head()
 Tahapan data preparation sangat penting dalam data analysis dan machine learning, karena data yang tidak bersih atau tidak siap dapat mengarah pada hasil analisis yang salah atau model yang kurang akurat. dalam tahapan ini juga dilakukan proses Encoder, dimana data diubah ke bentuk `Numerical` yang asalnya `Categorical` dengan mengunakan `Encoder`
 
 ## Split Dataset
-Pada tahap ini, dataset dibagi menjadi dua bagian: data training dan data testing. Data training berfungsi untuk melatih model machine learning. Dalam hal ini, data training dibagi lagi menjadi dua bagian, yaitu data tanpa fitur target `x_train` dan data yang hanya memiliki fitur target `y_train`. Begitu juga dengan data testing, yang dibagi menjadi data tanpa fitur target `x_test` dan data dengan fitur target saja `y_test`. Salah satu metode yang digunakan untuk membagi dataset menjadi empat bagian ini adalah `train_test_split()` dari library `sklearn`. Langkah ini penting untuk menyiapkan data yang diperlukan untuk mengevaluasi model, sehingga pengembang dapat mengetahui akurasi prediksi yang dihasilkan oleh model tersebut.
+Pada tahap ini, dataset dibagi menjadi dua bagian: data training dan data testing. Data training berfungsi untuk melatih model machine learning. Dalam hal ini, data training dibagi lagi menjadi dua bagian, yaitu data tanpa fitur target `x_train` dan data yang hanya memiliki fitur target `y_train`. Begitu juga dengan data testing, yang dibagi menjadi data tanpa fitur target `x_test` dan data dengan fitur target saja `y_test`. Salah satu metode yang digunakan untuk membagi dataset menjadi empat bagian ini adalah `train_test_split()` dari library `sklearn`. Langkah ini penting untuk menyiapkan data yang diperlukan untuk mengevaluasi model, sehingga pengembang dapat mengetahui akurasi prediksi yang dihasilkan oleh model tersebut. 
+Dalam Tahapan ini dilakukan undersampling pada `X` dan `y` terlebih dahulu dengan `RandomUnderSampler()` untuk melakukan balance data, namun kemudian menggunakan `X` dan `y` asli untuk membagi data ke dalam train dan test set menjadi `X_resampled` dan `y_resampled`.
 
 ```Python
 # split data test dan train
@@ -131,6 +148,9 @@ X = df.drop(['Diagnosis'], axis=1)
 y = df['Diagnosis']
 
 #  balancing Data
+X_resampled, y_resampled = RandomUnderSampler().fit_resample(X,y)
+
+# Train and Test data
 X_train, X_test, y_train, y_test = train_test_split(X, y, 
                                                     test_size=0.2, 
                                                     random_state=0)
@@ -138,101 +158,35 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
 # Modelling
 ## Model Random Forest
 Pada tahap pemodelan, beberapa algoritma digunakan, salah satunya adalah Random Forest untuk membangun model prediksi. Random Forest adalah algoritma ensemble berbasis pohon keputusan yang bekerja dengan cara membuat sejumlah besar pohon keputusan (decision trees) selama proses pelatihan. Setiap pohon dalam hutan acak dilatih dengan subset acak dari data, baik dalam hal fitur maupun sampel, dan hasil akhirnya didapatkan dengan mengambil rata-rata (untuk regresi) atau melakukan voting (untuk klasifikasi) dari semua pohon tersebut. 
-```Python
-# RandomForest
-
-modem_rm = RandomForestClassifier()
-modem_rm.fit(X_train, y_train)
-predic_rf = modem_rm.predict(X_test)
-
-print("akurasi:", accuracy_score(y_test, predic_rf))
-print(classification_report(y_test, predic_rf))
-```
-
+**Parameter Default :**
+- max_depth `default = None`: Batas maksimum kedalaman pohon. Jika None, pohon akan terus berkembang sampai semua data terklasifikasi.
+- min_samples_split `default = 2`: Jumlah minimum sampel yang diperlukan untuk membagi node.
+- criterion `default = 'gini'`: Kriteria yang digunakan untuk menentukan pembagian terbaik (misalnya, 'gini' atau 'entropy').
+- min_samples_leaf `default = 1`: Jumlah minimum sampel yang harus ada pada sebuah daun (leaf node).
 
 ## Decision Tree
 Model ini mudah diinterpretasi dan cepat untuk di-train serta mampu menangani baik data kategorikal maupun numerik, namun cenderung mudah overfitting dan kurang stabil terhadap perubahan kecil pada data.
-```Python
-# Decision Tree
-
-model_dt = DecisionTreeClassifier()
-model_dt.fit(X_train, y_train)
-predic_dt = model_dt.predict(X_test)
-
-print("akurasi:", accuracy_score(y_test, predic_dt))
-print(classification_report(y_test, predic_dt))
-```
+**Parameter Default :**
+- n_neighbors `default = 5`: Jumlah tetangga terdekat yang dipertimbangkan untuk klasifikasi.
+- metric `default = 'minkowski'`: Jarak yang digunakan untuk menentukan kedekatan (misalnya, Euclidean atau Manhattan).
+- weights `default = 'uniform'`: Menentukan apakah semua tetangga memiliki bobot yang sama `'uniform'` atau diberi bobot berdasarkan jaraknya `'distance'`.
 
 ## Adaboost
 Algoritma ini meningkatkan akurasi secara adaptif dengan memperhatikan kesalahan dari iterasi sebelumnya sehingga mengurangi bias, tetapi rentan terhadap overfitting jika terdapat outliers atau noise dalam data.
-```Python
-# AdaBoost
-
-model_ab = AdaBoostClassifier(estimator=LogisticRegression(random_state=42),
-                              n_estimators=50,
-                              random_state=42)
-model_ab.fit(X_train, y_train)
-predic_ab = model_ab.predict(X_test)
-
-print("akurasi:", accuracy_score(y_test, predic_ab))
-print(classification_report(y_test, predic_ab))
-```
+**Parameter Default :**
+- n_estimators `default = 50`: Jumlah model lemah `estimators` yang akan digabungkan.
+- learning_rate `default = 1.0`: Mengontrol kontribusi masing-masing model terhadap prediksi akhir. Nilai yang lebih rendah membuat model lebih stabil tetapi butuh lebih banyak iterasi.
+- base_estimator `default = DecisionTreeClassifier dengan kedalaman maksimum = 1`: Model dasar yang digunakan dalam proses boosting.
  
 ## KNN(K-Nearest Neighbors)
 Algoritma yang sederhana dan non-parametrik ini menghasilkan akurasi tinggi pada data dengan struktur klaster yang baik, tetapi memerlukan waktu komputasi yang lama pada dataset besar dan kurang efektif pada data berdimensi tinggi tanpa feature scaling yang memadai.
-```Python
-# KNN model
-
-model_knn = KNeighborsClassifier(n_neighbors=5, algorithm='brute', weights='uniform')
-model_knn.fit(X_train, y_train)
-predic_knn = model_knn.predict(X_test)
-
-print("akurasi:", accuracy_score(y_test, predic_knn))
-print(classification_report(y_test, predic_knn))
-```
+**Parameter Default :**
+- n_neighbors `default = 5`: Jumlah tetangga terdekat yang dipertimbangkan untuk klasifikasi.
+- metric `default = 'minkowski'`: Jarak yang digunakan untuk menentukan kedekatan (misalnya, Euclidean atau Manhattan).
+- weights `default = 'uniform'`: Menentukan apakah semua tetangga memiliki bobot yang sama `'uniform'` atau diberi bobot berdasarkan jaraknya `'distance'`.
 
 ## Model Hyperparameter Tuning
 Hyperparameter Tuning bertujuan untuk meningkatkan kinerja model dengan mengatur parameter-parameter pada algoritma yang digunakan. Dalam kasus ini, pencarian kombinasi hyperparameter terbaik dilakukan menggunakan Grid Search. Metrik yang digunakan untuk menilai performa Grid Search adalah Mean Cross Validation (CV). Setiap kemungkinan kombinasi nilai hyperparameter akan dievaluasi menggunakan metrik CV, dan kombinasi dengan skor CV tertinggi akan diterapkan pada pelatihan model.
-
-```python
-# Scaling Data
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-
-# Menggunakan SMOTE untuk menangani ketidakseimbangan kelas
-smote = SMOTE(random_state=42)
-X_train_resampled, y_train_resampled = smote.fit_resample(X_train_scaled, y_train)
-
-# Menentukan parameter grid untuk KNN
-param_grid = {
-    'n_neighbors': [3, 5, 7, 9, 11, 15, 20],  # Jumlah tetangga terdekat
-    'weights': ['uniform', 'distance'],  # Bobot tetangga
-    'algorithm': ['brute', 'ball_tree', 'kd_tree', 'auto']  # Algoritma pencarian
-}
-
-# Buat objek KNN
-knn = KNeighborsClassifier()
-
-# Buat objek GridSearchCV
-grid_search = GridSearchCV(estimator=knn, param_grid=param_grid, 
-                           scoring='accuracy', cv=5, n_jobs=-1)
-
-#Latih model dengan GridSearchCV menggunakan data yang sudah disampling
-grid_search.fit(X_train_resampled, y_train_resampled)
-
-# Menampilkan hasil
-print("Best Hyperparameters:", grid_search.best_params_)
-print("Best Cross-Validation Score:", grid_search.best_score_)
-
-# Menggunakan model terbaik untuk prediksi
-best_knn = grid_search.best_estimator_
-predic_knn_best = best_knn.predict(X_test_scaled)
-
-# Evaluasi model terbaik
-print("Akurasi pada test set:", accuracy_score(y_test, predic_knn_best))
-print(classification_report(y_test, predic_knn_best))
-```
 
 ## Perbandingan model Setelah menggunakan Hyperparameter Tuning
 Jika kita bandingkan dua model K-Nearest Neighbors (KNN) yang berbeda, satu dengan akurasi 0.5 dan satu lagi dengan akurasi 0.9 setelah hyperparameter tuning, kita bisa melihat bahwa tuning parameter memang berpengaruh besar terhadap performa model. 
@@ -269,23 +223,6 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | Macro Avg    | 1.00      | 1.00   | 1.00     | 2286    |
 | Weighted Avg | 1.00      | 1.00   | 1.00     | 2286    |
 
-**Cara Kerja Model :**
-- Akurasi Model: Model ini mencapai akurasi 1.0 atau 100%, yang menunjukkan bahwa semua prediksi model pada data uji adalah benar.
-
-- Presisi: Presisi untuk kedua kelas (0 dan 1) mencapai 1.0, yang berarti model tidak membuat kesalahan dalam memprediksi instance sebagai positif atau negatif untuk masing-masing kelas. Presisi tinggi ini menunjukkan bahwa model mampu membedakan kelas dengan sangat baik.
-
-- Recall: Recall untuk kedua kelas juga mencapai 1.0, yang menunjukkan bahwa model mampu mendeteksi seluruh instance dari masing-masing kelas dengan benar tanpa ada yang terlewatkan. Ini berarti model tidak melewatkan instance positif atau negatif.
-
-- F1-Score: Dengan presisi dan recall yang sama-sama mencapai 1.0, F1-score untuk kedua kelas juga berada pada 1.0, menunjukkan keseimbangan yang sempurna antara presisi dan recall.
-
-- Macro dan Weighted Average: Macro average dan weighted average untuk presisi, recall, dan F1-score semuanya adalah 1.0, menunjukkan bahwa performa model stabil di seluruh kelas tanpa adanya bias terhadap salah satu kelas.
-
-**Parameter Default :**
-- max_depth `default = None`: Batas maksimum kedalaman pohon. Jika None, pohon akan terus berkembang sampai semua data terklasifikasi.
-- min_samples_split `default = 2`: Jumlah minimum sampel yang diperlukan untuk membagi node.
-- criterion `default = 'gini'`: Kriteria yang digunakan untuk menentukan pembagian terbaik (misalnya, 'gini' atau 'entropy').
-- min_samples_leaf `default = 1`: Jumlah minimum sampel yang harus ada pada sebuah daun (leaf node).
-
 ## Model Menggunakan Decision Tree
 **Akurasi: 1.0**
 | Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
@@ -294,23 +231,6 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | Recall      | 1.00    | 1.00    | 1.00      | 1.00         |
 | F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
 | Support     | 1155    | 1131    | 2286      | 2286         |
-
-**Cara Kerja Model :**
-- Precision Ini adalah proporsi prediksi benar dari total prediksi positif yang dibuat oleh model. Class 0 dan Class 1 masing-masing memiliki precision 1.00, yang berarti model tidak menghasilkan kesalahan dalam prediksi kelas positifnya.
-
-- Recall Ini menunjukkan seberapa baik model menangkap semua contoh aktual dari setiap kelas. Nilai recall 1.00 untuk kedua kelas menunjukkan bahwa model berhasil mengidentifikasi semua contoh untuk kedua kelas tanpa ada yang terlewat.
-  
-- F1-Score Ini adalah rata-rata harmonik dari precision dan recall, yang berguna untuk mengukur performa model dalam menangani ketidakseimbangan antar kelas. F1-score 1.00 untuk kedua kelas menunjukkan model memiliki performa sangat baik tanpa trade-off antara precision dan recall.
-  
-- Support Ini adalah jumlah contoh dalam data untuk masing-masing kelas. Support 1155 untuk Class 0 dan 1131 untuk Class 1 menunjukkan jumlah data masing-masing kelas, dengan total 2286.
-
-- Accuracy: Akurasi model adalah 1.0, yang menunjukkan bahwa model Decision Tree berhasil memprediksi setiap data uji dengan benar tanpa kesalahan.
-
-**Parameter Default :**
-- n_neighbors `default = 5`: Jumlah tetangga terdekat yang dipertimbangkan untuk klasifikasi.
-- metric `default = 'minkowski'`: Jarak yang digunakan untuk menentukan kedekatan (misalnya, Euclidean atau Manhattan).
-- weights `default = 'uniform'`: Menentukan apakah semua tetangga memiliki bobot yang sama `'uniform'` atau diberi bobot berdasarkan jaraknya `'distance'`.
-
 
 ## Model Menggunakan AdaBoost
 **Accuracy**: 1.0
@@ -321,16 +241,6 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
 | Support     | 1155    | 1131    | 2286      | 2286         |
 
-**Cara Kerja Model :**
-- AdaBoost sering menggunakan decision stumps atau decision trees sederhana sebagai base learner
-- dataset memiliki kelas-kelas yang sangat mudah dipisahkan dengan batas yang jelas di antara keduanya, AdaBoost akan lebih mudah mencapai akurasi sempurna
-- Karena dataset memiliki relevansi yang tinggi maka model dapat belajar.
-
-**Parameter Default :**
-- n_estimators `default = 50`: Jumlah model lemah `estimators` yang akan digabungkan.
-- learning_rate `default = 1.0`: Mengontrol kontribusi masing-masing model terhadap prediksi akhir. Nilai yang lebih rendah membuat model lebih stabil tetapi butuh lebih banyak iterasi.
-- base_estimator `default = DecisionTreeClassifier dengan kedalaman maksimum = 1`: Model dasar yang digunakan dalam proses boosting.
-
 ## Model Menggunakan KNN
 **Accuracy**: 0.4978
 | Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
@@ -340,17 +250,6 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 | F1-Score    | 0.50    | 0.49    | 0.50      | 0.50         |
 | Support     | 1155    | 1131    | 2286      | 2286         |
 
-**Cara Kerja Model :**
-- KNN bekerja dengan mencari tetangga terdekat dari setiap data berdasarkan jarak di ruang fitur. Jika data dari kedua kelas (Class 0 dan Class 1) berada sangat dekat atau saling tumpang tindih di ruang fitur, maka model akan kesulitan membedakan kelas tersebut. Hal ini membuat prediksi KNN mendekati tebak-tebakan acak
-- Jika K terlalu kecil, model dapat menjadi sangat sensitif terhadap noise. Sehingga mendapat Akurasi yang rendah
-- Jika dataset memiliki banyak fitur, efek dari jarak Euclidean menjadi kurang efektif untuk memisahkan kelas
-
-**Parameter Default :**
-- n_neighbors `default = 5`: Jumlah tetangga terdekat yang dipertimbangkan untuk klasifikasi.
-- metric `default = 'minkowski'`: Jarak yang digunakan untuk menentukan kedekatan (misalnya, Euclidean atau Manhattan).
-- weights `default = 'uniform'`: Menentukan apakah semua tetangga memiliki bobot yang sama `'uniform'` atau diberi bobot berdasarkan jaraknya `'distance'`.
-
-
 ## Model Hyperparameter Tuning
 dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan terhadapat Model. **Nilai terbaik yang diperoleh oleh Hyperparameter Tuning adalah:** 
 
@@ -358,7 +257,6 @@ dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan 
 `Best Cross-Validation Score: 1.0`
 
 **Accuracy**: 0.9991
-
 | Class | Precision | Recall | F1-Score | Support |
 |-------|-----------|--------|----------|--------|
 | 0     | 1.00      | 1.00   | 1.00     | 1155   |
