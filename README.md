@@ -48,9 +48,6 @@ Machine learning dapat menjadi alat yang sangat efektif dalam analisis data kese
 ## Exploratory Data Anlysis (EDA)
 Dalam proses Exploratory Data Anlysis (EDA) bertujuan untuk memahami dan menemukan pola dalam data yang digunakan dalam menjelaskan corelasi antar data. Dalam Exploratory Data Analysis dapat dibagi menjadi dua bagian yaitu Univariate dan Multivariate Analysis. 
 
-## Cleaning Data
-Cleaning data adalah proses penting dalam analisis data dan machine learning. Tujuan utamanya adalah untuk meningkatkan kualitas data sehingga model yang dibangun dapat menghasilkan prediksi yang lebih akurat dan dapat diandalkan. Dalam tahapan ini ada beberapa cara untuk cleaning data seperti cleaning `missing value`, menghapus data yang memiliki `duplikat`, dan menghapus data yang tidak relevan agar model memiliki prediksi yang akurat. salah satunya adalah terdapat beberapa data yang tidak releven seperti `Never Work` dalam kategori data `Work Type`.
-
 ## Univariate Analysis
 ![New data 2](https://github.com/user-attachments/assets/22fd2858-c7ae-4df8-99e2-847e918f3cc6)
 Gambar .1 Grafik Distribusi
@@ -89,6 +86,9 @@ Dalam gambar diatas terlihat bahwa data tidak memiliki outliers yang terdeteksi.
    Metode: Gunakan matriks korelasi dan heatmap.
 
 # Data Preperation
+## Cleaning Data
+Cleaning data adalah proses penting dalam analisis data dan machine learning. Tujuan utamanya adalah untuk meningkatkan kualitas data sehingga model yang dibangun dapat menghasilkan prediksi yang lebih akurat dan dapat diandalkan. Dalam tahapan ini ada beberapa cara untuk cleaning data seperti cleaning `missing value`, menghapus data yang memiliki `duplikat`, dan menghapus data yang tidak relevan agar model memiliki prediksi yang akurat. salah satunya adalah terdapat beberapa data yang tidak releven seperti `Never Work` dalam kategori data `Work Type`.
+
 ## Encoding 
 Data diubah ke bentuk Numeric agar dapat digunakan untuk memprediksi Stroke. Mengubah data dapat dilakukan Dengan menggunakan LabelEncoder dari library sklearn atau Dummies pandas yang berupa categoriacal menjadi Numerical.
 
@@ -123,6 +123,7 @@ df['Blood Pressure Levels'] = blood_pressure_encoder.fit_transform(df['Blood Pre
 df['Cholesterol Levels'] = cholesterol_levels_encoder.fit_transform(df['Cholesterol Levels'])
 df.head()
 ```
+
 Dengan Menggunakan Pandas.dummies :
 ```Python
 df_encoder = pd.get_dummies(df[['Work Type', 'Residence Type', 'Smoking Status', 'Alcohol Intake', 'Physical Activity', 'Family History of Stroke', 'Dietary Habits', 'Diagnosis']], drop_first=True).astype(int)
