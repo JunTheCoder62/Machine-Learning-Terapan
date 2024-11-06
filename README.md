@@ -215,56 +215,58 @@ Dengan metrik-metrik ini, performa model dapat dievaluasi secara komprehensif, m
 
 ## Model Menggunakan Random Forest
 **Akurasi: 1.0**
-
 |              | Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
-| Class 0      | 1.00      | 1.00   | 1.00     | 1155    |
-| Class 1      | 1.00      | 1.00   | 1.00     | 1131    |
-| **Accuracy** |           |        | 1.00     | 2286    |
-| Macro Avg    | 1.00      | 1.00   | 1.00     | 2286    |
-| Weighted Avg | 1.00      | 1.00   | 1.00     | 2286    |
+| Class 0      | 1.00      | 1.00   | 1.00     | 1082    |
+| Class 1      | 1.00      | 1.00   | 1.00     | 1200    |
+| **Accuracy** |           |        | 1.00     | 2282    |
+| Macro Avg    | 1.00      | 1.00   | 1.00     | 2282    |
+| Weighted Avg | 1.00      | 1.00   | 1.00     | 2282    |
 
 ## Model Menggunakan Decision Tree
 **Akurasi: 1.0**
-| Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
-|-------------|---------|---------|-----------|--------------|
-| Precision   | 1.00    | 1.00    | 1.00      | 1.00         |
-| Recall      | 1.00    | 1.00    | 1.00      | 1.00         |
-| F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
-| Support     | 1155    | 1131    | 2286      | 2286         |
+|              | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| Class 0      | 1.00      | 1.00   | 1.00     | 1082   |
+| Class 1      | 1.00      | 1.00   | 1.00     | 1200   |
+| **Accuracy** |           |        | 1.00     | 2282   |
+| Macro Avg    | 1.00      | 1.00   | 1.00     | 2282   |
+| Weighted Avg | 1.00      | 1.00   | 1.00     | 2282   |
 
 ## Model Menggunakan AdaBoost
 **Accuracy**: 1.0
-| Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
-|-------------|---------|---------|-----------|--------------|
-| Precision   | 1.00    | 1.00    | 1.00      | 1.00         |
-| Recall      | 1.00    | 1.00    | 1.00      | 1.00         |
-| F1-Score    | 1.00    | 1.00    | 1.00      | 1.00         |
-| Support     | 1155    | 1131    | 2286      | 2286         |
+|              | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| Class 0      | 1.00      | 1.00   | 1.00     | 1082    |
+| Class 1      | 1.00      | 1.00   | 1.00     | 1200    |
+| **Accuracy** |           |        | 1.00     | 2282    |
+| Macro Avg    | 1.00      | 1.00   | 1.00     | 2282    |
+| Weighted Avg | 1.00      | 1.00   | 1.00     | 2282    |
 
 ## Model Menggunakan KNN
-**Accuracy**: 0.4978
-| Metric      | Class 0 | Class 1 | Macro Avg | Weighted Avg |
-|-------------|---------|---------|-----------|--------------|
-| Precision   | 0.50    | 0.49    | 0.50      | 0.50         |
-| Recall      | 0.50    | 0.49    | 0.50      | 0.50         |
-| F1-Score    | 0.50    | 0.49    | 0.50      | 0.50         |
-| Support     | 1155    | 1131    | 2286      | 2286         |
+**Accuracy**: 0.5026292725679229
+|              | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| Class 0      | 0.48      | 0.50   | 0.49     | 1082    |
+| Class 1      | 0.53      | 0.50   | 0.51     | 1200    |
+| **Accuracy** |           |        | 0.50     | 2282    |
+| Macro Avg    | 0.50      | 0.50   | 0.50     | 2282    |
+| Weighted Avg | 0.50      | 0.50   | 0.50     | 2282    |
 
 ## Model Hyperparameter Tuning
 dengan menggunakan Hypermeter Tuning Kita dapat melihat akurasi yang signifikan terhadapat Model. **Nilai terbaik yang diperoleh oleh Hyperparameter Tuning adalah:** 
 
-`Best Hyperparameters: {'algorithm': 'brute', 'n_neighbors': 11, 'weights': 'uniform'}`
+`Best Hyperparameters: {'algorithm': 'brute', 'n_neighbors': 20, 'weights': 'uniform'}`
 `Best Cross-Validation Score: 1.0`
 
-**Accuracy**: 0.9991
-| Class | Precision | Recall | F1-Score | Support |
-|-------|-----------|--------|----------|--------|
-| 0     | 1.00      | 1.00   | 1.00     | 1155   |
-| 1     | 1.00      | 1.00   | 1.00     | 1131   |
-| **Accuracy**       | -         | -      | **1.00**     | **2286**   |
-| **Macro Avg**     | 1.00      | 1.00   | 1.00     | 2286   |
-| **Weighted Avg**  | 1.00      | 1.00   | 1.00     | 2286   |
+**Accuracy**: 1.0
+|              | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| Class 0      | 1.00      | 1.00   | 1.00     | 1082    |
+| Class 1      | 1.00      | 1.00   | 1.00     | 1200    |
+| **Accuracy** |           |        | 1.00     | 2282    |
+| Macro Avg    | 1.00      | 1.00   | 1.00     | 2282    |
+| Weighted Avg | 1.00      | 1.00   | 1.00     | 2282    |
 
 Dalam program di atas, hyperparameter tuning dilakukan pada model K-Nearest Neighbors (KNN) menggunakan GridSearchCV dari pustaka sklearn
 - Parameter ini menentukan jumlah tetangga terdekat yang akan dipertimbangkan untuk menentukan kelas dari titik data yang baru.
@@ -295,6 +297,8 @@ Namun, penting untuk dicatat bahwa meskipun "Dietary Habits" adalah fitur utama,
 **Goals** dari proyek ini adalah untuk meningkatkan kemampuan prediksi dan pemahaman tentang faktor-faktor yang berkontribusi terhadap stroke. Dengan metrik evaluasi seperti presisi, recall, dan F1-score, model yang dikembangkan tidak hanya mampu mengklasifikasikan data dengan akurat tetapi juga memberikan wawasan mengenai variabel yang paling berpengaruh, seperti "Dietary Habits," "Hypertension," "Heart Disease," dan "Smoking Status." Keberhasilan ini menunjukkan bahwa model tidak hanya mencapai, tetapi bahkan melebihi, ekspektasi yang diharapkan.
 
 **Dampak Solusi yang Diterapkan** termasuk penerapan machine learning dengan berbagai algoritma (Decision Tree, Random Forest, AdaBoost, dan KNN dengan hyperparameter tuning), berkontribusi pada pengembangan sistem yang lebih baik untuk memprediksi dan mengelola risiko stroke. Dengan akurasi yang tinggi, sistem ini dapat digunakan oleh praktisi kesehatan untuk memprioritaskan intervensi bagi individu yang berisiko tinggi, mengoptimalkan sumber daya, dan meningkatkan hasil kesehatan.
+
+**Best Model** Berdasarkan hasil, dapat dilihat bahwa model **Random Forest** dan **AdaBoost** memberikan kinerja terbaik dalam memprediksi risiko stroke pada dataset ini. Kedua model ini mampu mencapai akurasi 100% dan menunjukkan stabilitas yang baik dalam berbagai metrik evaluasi. Hal ini menunjukkan bahwa model ini dapat diandalkan untuk memprediksi risiko stroke pada pasien baru.
 
 # Kesimpulan
 Kesimpulan dari model Random Forest, Adaboost, Decision Tree, dan KNN(hyperparameter Tuning KNN model) di atas adalah bahwa model ini menunjukkan performa yang sangat baik pada data uji, dengan akurasi, presisi, recall, dan F1-score yang semuanya mencapai nilai maksimum 1.0. Ini menunjukkan bahwa model mampu mengklasifikasikan setiap instance pada data uji dengan benar tanpa ada kesalahan. 
